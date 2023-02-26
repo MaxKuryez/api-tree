@@ -9,32 +9,33 @@ import {
   TextField
 } from '@mui/material';
 
-const EditPopup = ({open, setOpen, handleEdit, item}) => {
+const AddPopup = ({open, setOpen, handleAdd, item}) => {
   const [text, setText] = useState('');
 
   const hadleTextChange = (e) => {
     setText(e.target.value);
   };
 
-  const submitNewName = () => {
+  const submitNewItem = () => {
     if (!text) return;
-    handleEdit({id: item.id, name: text, children: item.children});
+    const newItem = {id: Math.random(), name: text, children: []}
+    handleAdd(item, newItem);
     setText('');
     setOpen(false);
   }
 
   return (
     <Dialog open={open} onClose={() => setOpen(false)}>
-      <DialogTitle>Edit Item</DialogTitle>
+      <DialogTitle>Add Item</DialogTitle>
       <DialogContent>
         <DialogContentText>
-          Please provide new name for "{item.name}"?
+          Please provide name for child of "{item.name}"?
         </DialogContentText>
       </DialogContent>
       <TextField value={text} onChange={hadleTextChange}/>
       <DialogActions>
         <Button onClick={() => setOpen(false)}>Cancel</Button>
-        <Button onClick={submitNewName}>
+        <Button onClick={submitNewItem}>
           Change
         </Button>
       </DialogActions>
@@ -42,4 +43,4 @@ const EditPopup = ({open, setOpen, handleEdit, item}) => {
   );
 };
 
-export default EditPopup;
+export default AddPopup;

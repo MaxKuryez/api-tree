@@ -1,4 +1,4 @@
-import { useEffect, useContext } from 'react';
+import { useContext } from 'react';
 import ItemWithButtons from '../itemWithButtons/itemWuthButtons';
 import { TreeContext } from '../../context/treeData/treeData';
 
@@ -14,10 +14,6 @@ const ItemTree = () => {
       </div>
     );
   };
-
-  useEffect(() => {
-    console.log(treeData)
-  }, [treeData]);
 
   return (
     <div>
