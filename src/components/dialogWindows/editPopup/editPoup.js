@@ -6,8 +6,8 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  TextField
 } from '@mui/material';
+import { StyledTextField } from '../styled';
 
 const EditPopup = ({open, setOpen, handleEdit, item}) => {
   const [text, setText] = useState(item.name);
@@ -31,7 +31,7 @@ const EditPopup = ({open, setOpen, handleEdit, item}) => {
           Please provide new name for "{item.name}"?
         </DialogContentText>
       </DialogContent>
-      <TextField value={text} onChange={hadleTextChange} size="small" style={{width: '80%', margin: " 0 10% 0 10%"}}/>
+      <StyledTextField value={text} onChange={hadleTextChange} size="small"/>
       <DialogActions>
         <Button onClick={() => setOpen(false)}>Cancel</Button>
         <Button onClick={submitNewName}>

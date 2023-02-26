@@ -5,7 +5,14 @@ import RemovePopup from '../dialogWindows/removePoup/removePopup';
 import EditPopup from '../dialogWindows/editPopup/editPoup';
 import AddPopup from '../dialogWindows/addPopup/addPoup';
 import { IconButton } from '@mui/material';
-import { StyledDeleteIcon, StyledAddIcon, StyledEditIcon } from './styled';
+import {
+  StyledDeleteIcon,
+  StyledAddIcon,
+  StyledEditIcon,
+  ItemActions,
+  ItemName,
+  ItemContainer
+} from './styled';
 import { treeName, API, DELETE, ADD, RENAME } from '../../endpoints';
 import axios from 'axios';
 
@@ -45,9 +52,9 @@ const ItemWithButtons = ({item}) => {
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <div style={{ marginRight: 16, cursor: 'pointer', height: 25, display: 'flex' }} onMouseEnter={() => setIshovering(true)} onMouseLeave={() => setIshovering(false)}>{item.name}
-        {isHovering && <div style={{ display: 'flex', cursor: 'pointer', height: 19 }}>{!isRoot && <IconButton size="small" onClick={() => setOpenEdit(true)}>
+    <ItemContainer>
+      <ItemName onMouseEnter={() => setIshovering(true)} onMouseLeave={() => setIshovering(false)}>{item.name}
+        {isHovering && <ItemActions>{!isRoot && <IconButton size="small" onClick={() => setOpenEdit(true)}>
           <StyledEditIcon />
         </IconButton> }
         <IconButton size="small" onClick={() => setOpenAdd(true)}>
@@ -56,12 +63,12 @@ const ItemWithButtons = ({item}) => {
         {!isRoot && <IconButton size="small" onClick={() => setOpenDelete(true)}>
           <StyledDeleteIcon />
         </IconButton>}
-        </div>}
-      </div>
+        </ItemActions>}
+      </ItemName>
       <RemovePopup open={openDelete} setOpen={setOpenDelete} handleDelete={handleDeleteItem} item={item}/>
       <EditPopup open={openEdit} setOpen={setOpenEdit} handleEdit={handleEditItem} item={item}/>
       <AddPopup open={openAdd} setOpen={setOpenAdd} handleAdd={handleAddItem} item={item}/>
-    </div>
+    </ItemContainer>
   );
 };
 
