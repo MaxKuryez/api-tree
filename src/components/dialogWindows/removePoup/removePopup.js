@@ -9,6 +9,11 @@ import {
 
 const RemovePopup = ({open, setOpen, handleDelete, item}) => {
 
+  const submitDelete = () => {
+    handleDelete(item);
+    setOpen(false);
+  }
+
   return (
     <Dialog open={open} onClose={() => setOpen(false)}>
       <DialogTitle>Confirm Delete</DialogTitle>
@@ -19,7 +24,7 @@ const RemovePopup = ({open, setOpen, handleDelete, item}) => {
       </DialogContent>
       <DialogActions>
         <Button onClick={() => setOpen(false)}>Cancel</Button>
-        <Button onClick={() => handleDelete(item)} color="error">
+        <Button onClick={submitDelete} color="error">
           Delete
         </Button>
       </DialogActions>

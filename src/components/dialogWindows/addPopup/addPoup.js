@@ -36,7 +36,7 @@ const AddPopup = ({open, setOpen, handleAdd, item}) => {
       <DialogActions>
         <Button onClick={() => setOpen(false)}>Cancel</Button>
         <Button onClick={submitNewItem}>
-          Change
+          Add
         </Button>
       </DialogActions>
     </Dialog>

@@ -5,6 +5,8 @@ import { TreeContext } from '../../context/treeData/treeData';
 import RemovePopup from '../dialogWindows/removePoup/removePopup';
 import EditPopup from '../dialogWindows/editPopup/editPoup';
 import AddPopup from '../dialogWindows/addPopup/addPoup';
+import { treeName, API, DELETE, ADD, RENAME } from '../../endpoints';
+import axios from 'axios';
 
 const ItemWithButtons = ({item}) => {
   const { treeData, setTreeData } = useContext(TreeContext);
@@ -14,18 +16,29 @@ const ItemWithButtons = ({item}) => {
 
   const handleEditItem = (item) => {
     const newTree = editTreeItem(treeData, item.id, item);
-    setTreeData(newTree);
-    setOpenEdit(false);
+    axios.post(`${API}/${RENAME}?treeName=${treeName}&nodeId=${item.id}&newNodeName=${item.name}`)
+      .then(() => {
+        setTreeData(newTree);
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleAddItem = (item, nemItem) => {
     const newTree = addChildToTreeItem(treeData, item.id, nemItem);
-    setTreeData(newTree);
+    axios.post(`${API}/${ADD}?treeName=${treeName}&parentNodeId=${item.id}&nodeName=${nemItem.name}`)
+      .then(() => {
+        setTreeData(newTree);
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleDeleteItem = (item) => {
     const newTree = removeTreeItem(treeData, item.id);
-    setTreeData(newTree);
+    axios.post(`${API}/${DELETE}?treeName=${treeName}&nodeId=${item.id}`)
+      .then(() => {
+        setTreeData(newTree);
+      })
+      .catch((err) => console.log(err));
   };
 
   return (

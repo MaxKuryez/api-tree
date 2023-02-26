@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 
 const EditPopup = ({open, setOpen, handleEdit, item}) => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState(item.name);
 
   const hadleTextChange = (e) => {
     setText(e.target.value);
