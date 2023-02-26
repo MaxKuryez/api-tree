@@ -1,9 +1,12 @@
 import './App.css';
 import ItemTree from './components/itemTree/itemTree';
+import { TreeProvider } from './context/treeData/treeData';
 
 function App() {
   return (
-    <ItemTree />
+    <TreeProvider>
+      <ItemTree />
+    </TreeProvider>
   );
 }
 
