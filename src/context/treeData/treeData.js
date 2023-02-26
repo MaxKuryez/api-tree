@@ -10,7 +10,7 @@ const TreeProvider = ({ children }) => {
   const [treeData, setTreeData] = useState(null);
 
   useEffect(() => {
-    axios.get(`${API}/${GET}?treeName=${treeName}`)
+    axios.post(`${API}/${GET}?treeName=${treeName}`)
       .then((response) => setTreeData(response.data))
       .catch((err) => {setError(err.response ? err.response.data.data.message : err.message)});
   }, [setError]);
