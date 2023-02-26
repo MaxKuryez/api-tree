@@ -1,21 +1,19 @@
-import { createContext, useState, useEffect } from 'react';
+import { createContext, useState, useEffect, useContext } from 'react';
 import { treeName, API, GET } from '../../endpoints';
+import { ErrorContext } from '../error/error';
 import axios from 'axios';
 
 export const TreeContext = createContext(null);
 
 const TreeProvider = ({ children }) => {
+  const { setError } = useContext(ErrorContext);
   const [treeData, setTreeData] = useState(null);
 
   useEffect(() => {
-    axios.post(`${API}/${GET}?treeName=${treeName}`)
-    .then((response) => { console.log(response); setTreeData(response.data)})
-  }, []);
-
-  useEffect(() => {
-    console.log("changed:", treeData);
-  }, [treeData]);
-
+    axios.get(`${API}/${GET}?treeName=${treeName}`)
+      .then((response) => setTreeData(response.data))
+      .catch((err) => {setError(err.response ? err.response.data.data.message : err.message)});
+  }, [setError]);
 
   return (
     <TreeContext.Provider value={{ treeData, setTreeData }}>

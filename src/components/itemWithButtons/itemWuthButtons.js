@@ -14,6 +14,7 @@ import {
   ItemContainer
 } from './styled';
 import { treeName, API, DELETE, ADD, RENAME } from '../../endpoints';
+import { ErrorContext } from '../../context/error/error';
 import axios from 'axios';
 
 const ItemWithButtons = ({item}) => {
@@ -22,6 +23,7 @@ const ItemWithButtons = ({item}) => {
   const [openEdit, setOpenEdit] = useState(false);
   const [openAdd, setOpenAdd] = useState(false);
   const [isHovering, setIshovering] = useState(false);
+  const { setError } = useContext(ErrorContext);
   const isRoot = treeName === item.name;
 
   const handleEditItem = (item) => {
@@ -30,7 +32,7 @@ const ItemWithButtons = ({item}) => {
       .then(() => {
         setTreeData(newTree);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err.response ? err.response.data.data.message : err.message));
   };
 
   const handleAddItem = (item, nemItem) => {
@@ -39,7 +41,7 @@ const ItemWithButtons = ({item}) => {
       .then(() => {
         setTreeData(newTree);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err.response ? err.response.data.data.message : err.message));
   };
 
   const handleDeleteItem = (item) => {
@@ -48,7 +50,7 @@ const ItemWithButtons = ({item}) => {
       .then(() => {
         setTreeData(newTree);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => setError(err.response ? err.response.data.data.message : err.message));
   };
 
   return (
