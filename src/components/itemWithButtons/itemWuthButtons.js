@@ -1,10 +1,11 @@
 import { useContext, useState } from 'react';
-import { Button } from '@mui/material';
 import { removeTreeItem, editTreeItem, addChildToTreeItem } from './utils';
 import { TreeContext } from '../../context/treeData/treeData';
 import RemovePopup from '../dialogWindows/removePoup/removePopup';
 import EditPopup from '../dialogWindows/editPopup/editPoup';
 import AddPopup from '../dialogWindows/addPopup/addPoup';
+import { IconButton } from '@mui/material';
+import { StyledDeleteIcon, StyledAddIcon, StyledEditIcon } from './styled';
 import { treeName, API, DELETE, ADD, RENAME } from '../../endpoints';
 import axios from 'axios';
 
@@ -13,6 +14,8 @@ const ItemWithButtons = ({item}) => {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [openAdd, setOpenAdd] = useState(false);
+  const [isHovering, setIshovering] = useState(false);
+  const isRoot = treeName === item.name;
 
   const handleEditItem = (item) => {
     const newTree = editTreeItem(treeData, item.id, item);
@@ -43,28 +46,18 @@ const ItemWithButtons = ({item}) => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <div style={{ marginRight: 16 }}>{item.name}</div>
-      <Button
-        variant="outlined"
-        size="small"
-        onClick={() => setOpenEdit(true)}
-      >
-        Edit
-      </Button>
-      <Button
-        variant="outlined"
-        size="small"
-        onClick={() => setOpenAdd(true)}
-      >
-        Add Child
-      </Button>
-      <Button
-        variant="outlined"
-        size="small"
-        onClick={() => setOpenDelete(true)}
-      >
-        Delete
-      </Button>
+      <div style={{ marginRight: 16, cursor: 'pointer', height: 25, display: 'flex' }} onMouseEnter={() => setIshovering(true)} onMouseLeave={() => setIshovering(false)}>{item.name}
+        {isHovering && <div style={{ display: 'flex', cursor: 'pointer', height: 19 }}>{!isRoot && <IconButton size="small" onClick={() => setOpenEdit(true)}>
+          <StyledEditIcon />
+        </IconButton> }
+        <IconButton size="small" onClick={() => setOpenAdd(true)}>
+          <StyledAddIcon />
+        </IconButton>
+        {!isRoot && <IconButton size="small" onClick={() => setOpenDelete(true)}>
+          <StyledDeleteIcon />
+        </IconButton>}
+        </div>}
+      </div>
       <RemovePopup open={openDelete} setOpen={setOpenDelete} handleDelete={handleDeleteItem} item={item}/>
       <EditPopup open={openEdit} setOpen={setOpenEdit} handleEdit={handleEditItem} item={item}/>
       <AddPopup open={openAdd} setOpen={setOpenAdd} handleAdd={handleAddItem} item={item}/>

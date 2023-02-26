@@ -32,7 +32,7 @@ const AddPopup = ({open, setOpen, handleAdd, item}) => {
           Please provide name for child of "{item.name}"?
         </DialogContentText>
       </DialogContent>
-      <TextField value={text} onChange={hadleTextChange}/>
+      <TextField value={text} onChange={hadleTextChange} size="small" style={{width: '80%', margin: " 0 10% 0 10%"}}/>
       <DialogActions>
         <Button onClick={() => setOpen(false)}>Cancel</Button>
         <Button onClick={submitNewItem}>

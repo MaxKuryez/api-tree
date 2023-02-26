@@ -31,7 +31,7 @@ const EditPopup = ({open, setOpen, handleEdit, item}) => {
           Please provide new name for "{item.name}"?
         </DialogContentText>
       </DialogContent>
-      <TextField value={text} onChange={hadleTextChange}/>
+      <TextField value={text} onChange={hadleTextChange} size="small" style={{width: '80%', margin: " 0 10% 0 10%"}}/>
       <DialogActions>
         <Button onClick={() => setOpen(false)}>Cancel</Button>
         <Button onClick={submitNewName}>
